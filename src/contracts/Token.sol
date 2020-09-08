@@ -32,7 +32,7 @@ contract Token {
 		require(_to != address(0));
 		balanceOf[_from] = balanceOf[_from].sub(_value);
 		balanceOf[_to] = balanceOf[_to].add(_value);
-		emit Transfer(msg.sender, _to, _value);
+		emit Transfer(_from, _to, _value);
 	}
 
 	function approve(address _spender, uint256 _value) public returns (bool success) {
@@ -42,8 +42,9 @@ contract Token {
 		return true;
 	}
 
-	function transferFrom(address _from, address _to, uint256 value) public returns (bool success) {
-
+	function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+		allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);
+		_transfer(_from, _to, _value);
 		return true;
 	}	
 
