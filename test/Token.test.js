@@ -124,7 +124,6 @@ contract('Token', ([deployer, receiver, exchange]) => {
 		})
 	})
 
-	// ~~~
 	describe('delegated token transfers', () => {
 		let result;
 		let amount;
