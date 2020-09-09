@@ -15,7 +15,7 @@ contract('Exchange', ([deployer, feeAccount, user1]) => {
 	beforeEach(async () => {
 		// Deploy token
 		token = await Token.new();
-		
+
 		// Transfer some tokens to user1
 		token.transfer(user1, tokens(100), { from: deployer });
 
@@ -50,7 +50,10 @@ contract('Exchange', ([deployer, feeAccount, user1]) => {
 				// Check exchange token balance
 				let balance;
 				balance = await token.balanceOf(exchange.address);
-				balance.toString().should.equal(amount.toString())
+				balance.toString().should.equal(amount.toString());
+				// Check tokens on exchange
+				balance = await exchange.tokens(token.address, user1);
+				balance.toString().should.equal(amount.toString());
 			})
 		})
 
