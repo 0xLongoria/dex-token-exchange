@@ -5,7 +5,7 @@ import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 // TODO:
 // [X] Set the fee account
-// [ ] Deposit Ether
+// [X] Deposit Ether
 // [ ] Withdraw Ether
 // [X] Deposit tokens
 // [ ] Withdraw tokens
@@ -30,6 +30,11 @@ contract Exchange {
 	constructor (address _feeAccount, uint256 _feePercent) public {
 		feeAccount = _feeAccount;
 		feePercent = _feePercent;
+	}
+
+	// Fallback: reverts if Ether is sent directly to this smart contract by mistake
+	function() external {
+		revert();
 	}
 
 	function depositEther() payable public {
