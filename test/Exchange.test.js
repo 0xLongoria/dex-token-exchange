@@ -1,4 +1,4 @@
-import { tokens, EVM_REVERT, ETHER_ADDRESS } from './helpers';
+import { tokens, ether, EVM_REVERT, ETHER_ADDRESS } from './helpers';
 
 const Token = artifacts.require('./Token');
 const Exchange = artifacts.require('./Exchange');
@@ -33,6 +33,22 @@ contract('Exchange', ([deployer, feeAccount, user1]) => {
 			const result = await exchange.feePercent();
 			result.toString().should.equal(feePercent.toString());
 		})
+	})
+
+	describe('depositing Ether', async () => {
+		let result;
+		let amount
+		
+		beforeEach(async () => {
+			amount = ether(1);
+			result = await exchange.depositEther({ from: user1, value: amount })
+		})
+
+		it('tracks the Ether deposit', async () => {
+			const balance = await exchange.tokens(ETHER_ADDRESS, user1);
+			balance.toString().should.equal(amount.toString());
+		})
+
 	})
 
 	describe('depositing tokens', () => {
