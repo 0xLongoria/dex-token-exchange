@@ -1,4 +1,4 @@
-import { tokens, EVM_REVERT } from './helpers';
+import { tokens, EVM_REVERT, ETHER_ADDRESS } from './helpers';
 
 const Token = artifacts.require('./Token');
 const Exchange = artifacts.require('./Exchange');
@@ -68,6 +68,11 @@ contract('Exchange', ([deployer, feeAccount, user1]) => {
 		})
 
 		describe('failure', () => {
+			it('rejects Ether deposits', async () => {
+				// TODO: fill me in
+				await exchange.depositToken(ETHER_ADDRESS, tokens(10), { from: user1 }).should.be.rejectedWith(EVM_REVERT);
+			})
+
 			it('fails when no tokens are approved', async () => {
 				// Don't approve any tokens before depositing
 				await exchange.depositToken(token.address, tokens(10), { from: user1 }).should.be.rejectedWith(EVM_REVERT);
