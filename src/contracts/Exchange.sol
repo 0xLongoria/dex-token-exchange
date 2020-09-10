@@ -23,6 +23,7 @@ contract Exchange {
 	uint256 public feePercent; // the fee percentage
 	address constant ETHER = address(0); // store Ether in tokens mapping with blank address
 	mapping(address => mapping(address => uint256)) public tokens;
+	mapping(uint256 => _Order) public orders;
 
 	// Events
 	event Deposit(address token, address user, uint256 amount, uint256 balance);
@@ -38,7 +39,6 @@ contract Exchange {
 		uint timestamp;
 	}
 
-	// A way to store the order
 	// Add the order to storage
 	
 
