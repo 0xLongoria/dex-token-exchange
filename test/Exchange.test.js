@@ -359,6 +359,5 @@ contract('Exchange', ([deployer, feeAccount, user1, user2]) => {
 				})
 			})
 		})
-
 	})
 })
