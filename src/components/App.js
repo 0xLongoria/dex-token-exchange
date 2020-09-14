@@ -4,6 +4,35 @@ import Web3 from 'web3';
 import Token from '../abis/Token.json';
 
 class App extends Component {
+  
+  async componentWillMount() {
+    await this.loadWeb3();
+    await this.loadBlockchainData();
+  }
+
+  async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    }
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
+    }
+  }
+
+  async loadBlockchainData() {
+    const web3 = window.web3;
+    const network = await web3.eth.net.getNetworkType();
+    const networkId = await web3.eth.net.getId();
+    const accounts = await web3.eth.getAccounts();
+    const token = new web3.eth.Contract(Token.abi, Token.networks[networkId].address);
+    const totalSupply = await token.methods.totalSupply().call();
+    console.log("totalSupply", totalSupply);
+  }
+
   render() {
     return (
       <div>
