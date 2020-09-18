@@ -8,6 +8,7 @@ import {
   loadToken,
   loadExchange
 } from '../store/interactions';
+import { accountSelector } from '../store/selectors';
 
 class App extends Component {
   
@@ -39,6 +40,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props.account);
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -131,7 +133,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    // TODO: Fill me in... 
+    account: accountSelector(state)
   }
 }
 
