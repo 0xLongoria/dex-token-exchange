@@ -10,6 +10,7 @@ import {
   loadToken,
   loadExchange
 } from '../store/interactions';
+import { contractsLoadedSelector } from '../store/selectors';
 
 
 class App extends Component {
@@ -36,7 +37,7 @@ class App extends Component {
     const web3 = loadAndDispatchWeb3(dispatch);
     await web3.eth.net.getNetworkType();
     const networkId = await web3.eth.net.getId();
-    const accounts = await loadAccount(web3, dispatch);
+    await loadAccount(web3, dispatch);
     const token = loadToken(web3, networkId, dispatch);
     loadExchange(web3, networkId, dispatch);
   }
@@ -45,7 +46,7 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        <Content />
+        { this.props.contractsLoaded ? <Content /> : <div className="content"></div> }        
       </div>
     );
   }
@@ -53,7 +54,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    // TODO: Fill me in
+    contractsLoaded: contractsLoadedSelector(state)
   }
 }
 
