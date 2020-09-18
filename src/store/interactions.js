@@ -7,7 +7,7 @@ import {
 import Token from '../abis/Token.json';
 import Exchange from '../abis/Exchange.json';
 
-export const loadWeb3 = (dispatch) => {
+export const loadAndDispatchWeb3 = (dispatch) => {
 	const web3 = window.web3;
 	dispatch(web3Loaded(web3));
 	return web3;
