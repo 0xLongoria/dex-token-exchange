@@ -1,33 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Spinner from './Spinner';
 import {
 	filledOrdersLoadedSelector,
 	filledOrdersSelector
 } from '../store/selectors';
 
+const showFilledOrders =(filledOrders) => {
+	return (
+		<tbody>
+			{ filledOrders.map((order) => { 
+				return (
+					<tr className={`order-${order.id}`} key={order.id}>
+						<td className="text-muted">{order.formattedTimestamp}</td>
+						<td>{order.tokenAmount}</td>
+						<td className={`text-${order.tokenPriceClass}`}>{order.tokenPrice}</td>
+					</tr>
+				)
+			}) }
+		</tbody>
+	)
+}
+
 class Trades extends Component {
 	render() {
 		return (
-			<div className="card bg-dark text-white">
-        <div className="card-header">
-          Card Title
-        </div>
-        <div className="card-body">
-          <table className="table table-dark table-sm small">
-          	<thread>
-          		<tr>
-          			<th>Time</th>
-          			<th>DEX</th>
-          			<th>DEX/ETH</th>
-          			<tr>
-	          			<td></td>
-	          			<td></td>
-	          			<td></td>
+		  <div className="vertical">
+	      <div className="card bg-dark text-white">
+	        <div className="card-header">
+	          Trades
+	        </div>
+	        <div className="card-body">
+	          <table className="table table-dark table-sm small">
+	          	<thead>
+	          		<tr>
+	          			<th>Time</th>
+	          			<th>DEX</th>
+	          			<th>DEX/ETH</th>
 	          		</tr>
-          		</tr>
-          	</thread>
-          </table>
-        </div>
+	          	</thead>
+	          	{ this.props.filledOrdersLoaded ? showFilledOrders(this.props.filledOrders) : <Spinner type="table" /> }
+	          </table>
+	        </div>
+	      </div>
       </div>
 		)
 	}
