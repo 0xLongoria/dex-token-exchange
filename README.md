@@ -41,7 +41,7 @@ This project uses industry standard technology to interact with the Ethereum sma
 		12.1. UI subcomponents send data to Content.js
 		12.2. NewOrder.js send data to actions.js (calculate the New Order cost in the real time)  
 
-		--- after that action.js will go to the step 9 ---
+--- after that action.js will go to the step 9 ---
 
 13. interactions.js send Buy/Sell order to the Smart Contracts on Ethereum Blockchain
 		13.1. Content send request to interactions.js for updated data from Smart Contracts
@@ -53,13 +53,13 @@ This project uses industry standard technology to interact with the Ethereum sma
 		15.1. Smart Contracts updates data
 		15.2. Website send updated "DApp view" to the User
 16. MetaMask forwards order confirmation to the User
-		16.1 Smart Contracts send updated data to the interaction.js
+		16.1 Smart Contracts send updated data to the interaction.js  
 
-	--- after that interactions.js will go to the step 8 ---
+--- after that interactions.js will go to the step 8 ---
 
 17. User confirm order via MetaMask
 18. MetaMask send confirmation to the Smart Contracts
-19. Smart Contracts update the state (make action to the Buy/Sell order)
+19. Smart Contracts update the state (make action to the Buy/Sell order)  
 
 --- DApp will update this info like in steps 15.1. and 16.1. ---
 
