@@ -12,8 +12,7 @@ https://crypto-token-exchange.herokuapp.com/
 
 ## Project Architecture  
 This project uses industry standard technology to interact with the Ethereum smart contracts, namely React and Redux.  
-
-### System Design  
+ 
 ![system-design](./design.png)  
 
 
@@ -30,30 +29,30 @@ This project uses industry standard technology to interact with the Ethereum sma
 8. interactions.js send data to the actions.js
 9. actions.js send data to the reducers.js
 10. reducers.js send data to selectors.js
-		10.1. reducers.js send data to configureStore.js(Redux - DApp temporary Data Base)
+* 10.1. reducers.js send data to configureStore.js(Redux - DApp temporary Data Base)
 11. selectors.js send Buy/Sell Order to NewOrder.js
-		11.1. selectors.js fill with data UI(User Interface):
-    	  * subcomponents - NewOrder.js, Balance.js, PriceChart.js, OrderBook.js, MyTransactions.js.
-    	  * main components - Navbar.js, Content.js
-    	  * main DApp file - App.js
-  	11.2. configureStore.js send data to the Website
+* 11.1. selectors.js fill with data UI(User Interface):
+  * subcomponents - NewOrder.js, Balance.js, PriceChart.js, OrderBook.js, MyTransactions.js.
+  * main components - Navbar.js, Content.js
+  * main DApp file - App.js
+* 11.2. configureStore.js send data to the Website
 12. NewOrder.js send Buy/Sell order to interactions.js
-		12.1. UI subcomponents send data to Content.js
-		12.2. NewOrder.js send data to actions.js (calculate the New Order cost in the real time)  
+* 12.1. UI subcomponents send data to Content.js
+* 12.2. NewOrder.js send data to actions.js (calculate the New Order cost in the real time)  
 
 --- after that action.js will go to the step 9 ---
 
 13. interactions.js send Buy/Sell order to the Smart Contracts on Ethereum Blockchain
-		13.1. Content send request to interactions.js for updated data from Smart Contracts
-		13.2. Navbar and Content send data to App.js
+* 13.1. Content send request to interactions.js for updated data from Smart Contracts
+* 13.2. Navbar and Content send data to App.js
 14. Smart Contracts make action to Buy/Sell orders from user
-		14.1. interactions.js send request for new data from Smart Contracts
-		14.2. App.js send "DApp view" to the Website
+* 14.1. interactions.js send request for new data from Smart Contracts
+* 14.2. App.js send "DApp view" to the Website
 15. Smart Contracts ask User for order confirmation via MetaMask
-		15.1. Smart Contracts updates data
-		15.2. Website send updated "DApp view" to the User
+* 15.1. Smart Contracts updates data
+* 15.2. Website send updated "DApp view" to the User
 16. MetaMask forwards order confirmation to the User
-		16.1 Smart Contracts send updated data to the interaction.js  
+* 16.1 Smart Contracts send updated data to the interaction.js  
 
 --- after that interactions.js will go to the step 8 ---
 
