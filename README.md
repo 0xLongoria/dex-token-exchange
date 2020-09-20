@@ -1,68 +1,66 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# DEX Token Exchange  
+This repository contains project files for a basic decentralized exchange that can run on an Ethereum network. The exchange can trade two tokens - Ether and a unique ERC20 token (DEX Token). 
 
-## Available Scripts
+An example of this project can be found live on the Kovan testnet. Contract addresses can be found below:
+* Exchange contract: [0xc7d9FF522F3B531e920795DeE1fc04aa3D0e5210](https://kovan.etherscan.io/address/0xc7d9FF522F3B531e920795DeE1fc04aa3D0e5210)  
+* DEX Token contract: [0x6Dfc6c4ec2148C8b7b8fbcE4E65F507efFfef462](https://kovan.etherscan.io/address/0x6Dfc6c4ec2148C8b7b8fbcE4E65F507efFfef462)
 
-In the project directory, you can run:
+This repo includes files for a front-end application to interact with the DEX Token exchange.
 
-### `yarn start`
+An implementation of this project can be found at:  
+https://crypto-token-exchange.herokuapp.com/  
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Project Architecture  
+This project uses industry standard technology to interact with the Ethereum smart contracts, namely React and Redux.  
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### System Design  
+![system-design](./design.png)  
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. User connect to the MetaMask wallet
+2. MetaMask wallet connect to the Ethereum Blockchain
+3. Ethereum Blockchain connects to MetaMask
+4. MetaMask wallet give User connection to the Blockchain  
 
-### `yarn build`
+--- now User can connect to the DApp ---
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. User/MetaMask send Buy/Sell order to the Website(index.js(index.html))
+6. Website send data to the App.js(React/DApp)
+7. App.js send data to interactions.js
+8. interactions.js send data to the actions.js
+9. actions.js send data to the reducers.js
+10. reducers.js send data to selectors.js
+		10.1. reducers.js send data to configureStore.js(Redux - DApp temporary Data Base)
+11. selectors.js send Buy/Sell Order to NewOrder.js
+		11.1. selectors.js fill with data UI(User Interface):
+    	  * subcomponents - NewOrder.js, Balance.js, PriceChart.js, OrderBook.js, MyTransactions.js.
+    	  * main components - Navbar.js, Content.js
+    	  * main DApp file - App.js
+  	11.2. configureStore.js send data to the Website
+12. NewOrder.js send Buy/Sell order to interactions.js
+		12.1. UI subcomponents send data to Content.js
+		12.2. NewOrder.js send data to actions.js (calculate the New Order cost in the real time)  
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+		--- after that action.js will go to the step 9 ---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+13. interactions.js send Buy/Sell order to the Smart Contracts on Ethereum Blockchain
+		13.1. Content send request to interactions.js for updated data from Smart Contracts
+		13.2. Navbar and Content send data to App.js
+14. Smart Contracts make action to Buy/Sell orders from user
+		14.1. interactions.js send request for new data from Smart Contracts
+		14.2. App.js send "DApp view" to the Website
+15. Smart Contracts ask User for order confirmation via MetaMask
+		15.1. Smart Contracts updates data
+		15.2. Website send updated "DApp view" to the User
+16. MetaMask forwards order confirmation to the User
+		16.1 Smart Contracts send updated data to the interaction.js
 
-### `yarn eject`
+	--- after that interactions.js will go to the step 8 ---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+17. User confirm order via MetaMask
+18. MetaMask send confirmation to the Smart Contracts
+19. Smart Contracts update the state (make action to the Buy/Sell order)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+--- DApp will update this info like in steps 15.1. and 16.1. ---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+20. Smart Contracts send Tokens, Ether to the MetaMask/User (or just make order)
