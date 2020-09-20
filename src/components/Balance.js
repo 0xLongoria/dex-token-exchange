@@ -51,7 +51,7 @@ const showForm = (props) => {
 	return (
 		<Tabs defaultActiveKey="deposit" className="bg-dark text-white">
 
-			<Tab eventKey="deposit" title="Depist" className="bg-dark">
+			<Tab eventKey="deposit" title="Deposit" className="bg-dark">
 
 				<table className="table table-dark table-sm small">
 					<thead>
