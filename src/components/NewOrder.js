@@ -85,7 +85,7 @@ const showForm = (props) => {
             <input
               type="text"
               className="form-control form-control-sm bg-dark text-white"
-              placeholder="Sell amount"
+              placeholder="Sell Amount"
               onChange={(e) => dispatch( sellOrderAmountChanged( e.target.value ) )}
               required
             />
