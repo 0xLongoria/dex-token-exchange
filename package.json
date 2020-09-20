@@ -4,6 +4,9 @@
   "description": "Decentralized Ethereum Token Exchange",
   "author": "m@longoria.io",
   "private": true,
+  "engines": {
+    "node": "8.11.1"
+  },
   "dependencies": {
     "@truffle/hdwallet-provider": "^1.1.0",
     "apexcharts": "3.6.3",
